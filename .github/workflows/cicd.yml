@@ -41,7 +41,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: 289829300853.dkr.ecr.us-east-2.amazonaws.com/ammar-repo:latest
+          tags: 289829300853.dkr.ecr.us-east-2.amazonaws.com/hosting:latest
 
   deploy:
     needs: build-push
@@ -57,7 +57,7 @@ jobs:
           port: 22
           script: |
             cd ~/host-app-docker-project
-            export APP_IMAGE=289829300853.dkr.ecr.us-east-2.amazonaws.com/ammar-repo:latest
+            export APP_IMAGE=289829300853.dkr.ecr.us-east-2.amazonaws.com/hosting:latest
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 289829300853.dkr.ecr.us-east-2.amazonaws.com
             docker pull $APP_IMAGE
             docker compose up -d --no-build --no-deps app
