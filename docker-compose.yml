@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: ${APP_IMAGE:-host-app-docker-project-app:local}
     restart: unless-stopped
     env_file: .env
     environment:
