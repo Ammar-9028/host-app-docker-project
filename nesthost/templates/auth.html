@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}{{ "Free signup" if mode == "signup" else "Login" }} | {{ brand }}{% endblock %}
+{% block content %}<section class="authw"><form method="post" class="card auth rv in"><h1>{{ "Free account banao" if mode == "signup" else "Wapas swagat hai" }}</h1>
+<input type="hidden" name="csrf" value="{{ csrf() }}">
+<label>Email<input type="email" name="email" required autocomplete="email" maxlength="254" autofocus></label>
+<label>Password{% if mode == "signup" %} (min 8){% endif %}<input type="password" name="password" required minlength="{{ 8 if mode == 'signup' else 1 }}" autocomplete="{{ 'new-password' if mode == 'signup' else 'current-password' }}"></label>
+<button class="btn wide" type="submit">{{ "Account banao" if mode == "signup" else "Login" }}</button>
+<p class="note">{% if mode == "signup" %}Pehle se account hai? <a href="/login">Login</a>{% else %}Naye ho? <a href="/signup">Free signup</a>{% endif %}</p></form></section>{% endblock %}

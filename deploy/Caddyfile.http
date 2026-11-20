@@ -1,0 +1,7 @@
+# Plain HTTP (demo / sslip.io / first test). No certificates.
+{
+	auto_https off
+}
+:80 {
+	reverse_proxy app:8000
+}

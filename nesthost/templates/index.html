@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% block bodyclass %}home{% endblock %}
+{% block content %}
+<section class="hero"><div class="blob b1"></div><div class="blob b2"></div>
+<div class="hero-t"><p class="chip"><i></i> 100% free &middot; no credit card</p>
+<h1>Apni website banao,<br><span class="grad">bilkul free mein.</span></h1>
+<p class="sub">Free hosting, free <b>yourname.{{ base }}</b> subdomain aur automatic HTTPS. ZIP upload karo ya ready template se site publish karo. Apna domain hai to wo bhi jod sakte ho.</p>
+<form class="search" id="dc" autocomplete="off"><input id="dcq" name="q" placeholder="apna naam ya domain likho, jaise rahul" aria-label="Subdomain ya domain" maxlength="80"><button class="btn" type="submit">Check karo</button></form>
+<p id="dcr" class="dcr" role="status" aria-live="polite"></p>
+<div class="trust"><span>Free SSL</span><span>Custom domain</span><span>Templates</span><span>ZIP upload</span></div></div>
+<div class="mock" aria-hidden="true"><div class="win"><div class="bar"><i></i><i></i><i></i><span class="url"><b>https://</b><em>yourname.{{ base }}</em></span></div>
+<div class="scr"><div class="s1"></div><div class="s2"></div><div class="s3"></div><div class="live"><i></i> Live</div></div></div>
+<div class="chipf f1">SSL active</div><div class="chipf f2">3 sites free</div><div class="chipf f3">Deploy in 10s</div></div></section>
+
+<section id="how" class="sec"><h2 class="rv">3 steps mein online</h2><div class="steps">
+<article class="rv"><span>1</span><h3>Free account banao</h3><p>Sirf email aur password. Koi card nahi.</p></article>
+<article class="rv"><span>2</span><h3>Naam chuno</h3><p><b>yourname.{{ base }}</b> turant tumhara.</p></article>
+<article class="rv"><span>3</span><h3>Upload ya template</h3><p>ZIP drop karo ya portfolio, business, invite template se publish karo.</p></article></div></section>
+
+<section id="features" class="sec alt"><h2 class="rv">Kya-kya milta hai</h2><div class="fg">
+{% for t,d in [("Free subdomain","Har site ko apna naam.{{BASE}}. Instantly live."),("Automatic HTTPS","Certificate khud ban jaata hai, koi setup nahi."),("ZIP deploy","Poora static site ZIP se upload. Safe extraction aur 50 MB tak."),("Ready templates","Portfolio, Business, Event invitation, Link in bio."),("Custom domain","Apna domain jodo, DNS verify karo, HTTPS ke saath live."),("Admin controls","Abuse par suspend, users aur sites ek jagah.")] %}
+<article class="rv"><b>{{ t }}</b><p>{{ d.replace("{{BASE}}", base) }}</p></article>{% endfor %}</div></section>
+
+<section class="sec"><div class="plan rv"><div><p class="chip dark">Free forever</p><h2>Rs 0 / month</h2><ul><li>{{ cfg.max_sites }} websites</li><li>{{ cfg.max_site_mb }} MB per site</li><li>Free subdomain + HTTPS</li><li>Custom domain connect</li></ul></div>
+<a class="btn big" href="/signup">Free mein shuru karo</a></div>
+<p class="note rv">Static websites (HTML, CSS, JS, images). PHP, databases aur server code is plan mein nahi hain.</p></section>
+
+<section id="faq" class="sec alt"><h2 class="rv">Sawal-jawab</h2><div class="faq">
+<details class="rv"><summary>Kya yahan se asli .com domain free milega?</summary><p>Nahi. Koi bhi .com/.in domain registry ko paise dekar hi register hota hai. Yahan aapko free <b>subdomain</b> milta hai. Asli domain ke options <a href="/domains">Domain guide</a> mein hain.</p></details>
+<details class="rv"><summary>Apna domain connect kaise karein?</summary><p>Site manage page par domain add karo, DNS mein A record batayi gayi IP par point karo, aur Verify dabao.</p></details>
+<details class="rv"><summary>Kaunsi websites chal sakti hain?</summary><p>Sirf static: HTML, CSS, JavaScript, images, fonts. Server-side code (PHP, Node) nahi.</p></details>
+<details class="rv"><summary>Mera data safe hai?</summary><p>Passwords hashed store hote hain. Site files public hoti hain, isliye secrets upload mat karo.</p></details></div></section>
+{% endblock %}

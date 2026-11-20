@@ -1,0 +1,26 @@
+name: ci
+on:
+  push: { branches: [main] }
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt
+      - run: python -W ignore -m unittest discover -s tests -v
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t nesthost:ci .
+      - name: Run container and check health
+        run: |
+          docker run -d --name nh -p 8000:8000 nesthost:ci
+          for i in $(seq 1 20); do curl -fs localhost:8000/healthz && break || sleep 2; done
+          curl -fs localhost:8000/healthz | grep -q '"status":"ok"'

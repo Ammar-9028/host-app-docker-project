@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}{{ brand }} | Free website hosting + free subdomain{% endblock %}</title>
+<meta name="description" content="Apni website free mein host karo. Free subdomain, free SSL aur apna custom domain connect karne ka option.">
+<meta name="theme-color" content="#2b1a6b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body class="{% block bodyclass %}{% endblock %}">
+<header class="nav"><a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 20a6 6 0 0 1 5-9.9A8 8 0 0 1 26 12a5 5 0 0 1-1 10H8a4 4 0 0 1-2-2z"/></svg>{{ brand }}</a>
+<nav><a href="/domains">Free domain</a><a href="/#features">Features</a><a href="/#faq">FAQ</a>
+{% if user %}<a class="pill" href="/dashboard">Dashboard</a>{% if user.is_admin %}<a href="/admin">Admin</a>{% endif %}
+<form method="post" action="/logout" class="inl"><input type="hidden" name="csrf" value="{{ csrf() }}"><button class="lnk" type="submit">Logout</button></form>
+{% else %}<a href="/login">Login</a><a class="pill" href="/signup">Free signup</a>{% endif %}</nav></header>
+{% with msgs = get_flashed_messages(with_categories=true) %}{% if msgs %}<div class="flashes">{% for c, m in msgs %}<p class="flash {{ c }}" role="status">{{ m }}</p>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer class="foot"><div><b>{{ brand }}</b><p>Free hosting sirf learning, portfolio aur chhote projects ke liye. Spam, phishing aur illegal content par site turant band ho jaati hai.</p></div>
+<p>{% if cfg.admin_email %}<a href="mailto:{{ cfg.admin_email }}?subject=Abuse report">Report abuse</a> &middot; {% endif %}<a href="/domains">Domain guide</a></p></footer>
+<script src="/static/js/app.js"></script></body></html>

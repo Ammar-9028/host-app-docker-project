@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Dashboard | {{ brand }}{% endblock %}
+{% block content %}<section class="sec"><h1>Aapki websites</h1>
+<div class="sites">{% for s in sites %}<article class="card site rv"><div><b>{{ s.subdomain }}.{{ base }}</b><p class="dim">{{ s.files }} files &middot; {{ (s.bytes / 1024) | round(1) }} KB &middot; <span class="st {{ s.status }}">{{ s.status }}</span></p></div>
+<div class="row"><a class="btn sm" href="{{ site_url(s.subdomain) }}" target="_blank" rel="noopener">Visit</a><a class="btn ghost sm" href="/sites/{{ s.id }}">Manage</a></div></article>
+{% else %}<p class="dim">Abhi koi site nahi. Neeche pehli site banao.</p>{% endfor %}</div>
+<form method="post" action="/sites" class="card create rv"><h2>Nayi site</h2><input type="hidden" name="csrf" value="{{ csrf() }}">
+<div class="form"><label>Subdomain<div class="suf"><input id="sub" name="subdomain" required maxlength="30" placeholder="yourname" autocomplete="off"><span>.{{ base }}</span></div><small id="subh" class="hint"></small></label>
+<label>Starting point<select name="starter">{% for k, v in starters.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label></div>
+<button class="btn" type="submit">Site banao ({{ sites|length }}/{{ cfg.max_sites }})</button></form></section>{% endblock %}

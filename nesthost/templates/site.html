@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% block title %}{{ site.subdomain }} | {{ brand }}{% endblock %}
+{% block content %}<section class="sec"><p><a href="/dashboard">&larr; Dashboard</a></p>
+<div class="head"><div><h1>{{ site.subdomain }}.{{ base }}</h1><p class="dim">{{ site.files }} files &middot; {{ (site.bytes / 1024) | round(1) }} KB &middot; <span class="st {{ site.status }}">{{ site.status }}</span></p></div>
+<div class="row"><a class="btn" href="{{ site_url(site.subdomain) }}" target="_blank" rel="noopener">Site dekho</a><button class="btn ghost" data-copy="{{ site_url(site.subdomain) }}" type="button">Link copy</button></div></div>
+
+<div class="two"><div class="card rv"><h2>ZIP upload</h2><p class="dim">ZIP ke root mein <code>index.html</code> rakho. Max {{ max_mb }} MB. Sirf static files.</p>
+<form id="zipform" data-action="/sites/{{ site.id }}/upload"><input type="hidden" name="csrf" value="{{ csrf() }}"><div class="drop" id="zdrop" tabindex="0" role="button" aria-label="ZIP chuno"><input type="file" name="zip" accept=".zip" hidden><p><b>ZIP yahan drop karo</b><br>ya click karke chuno</p></div>
+<div class="bar2" hidden><i></i></div><p id="zmsg" class="hint" role="status"></p></form></div>
+
+<div class="card rv"><h2>Quick builder</h2><form method="post" action="/sites/{{ site.id }}/publish"><input type="hidden" name="csrf" value="{{ csrf() }}">
+<label>Template<select name="starter">{% for k, v in starters.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label>
+<label>Title / naam<input name="title" maxlength="80" value="{{ site.subdomain|replace('-', ' ')|title }}"></label>
+<label>Tagline<input name="tagline" maxlength="200" placeholder="Ek line mein apne baare mein"></label>
+<label>About<textarea name="about" rows="3" maxlength="600" placeholder="Thoda detail"></textarea></label>
+<label>Contact email<input type="email" name="email" maxlength="120" value="{{ user.email }}"></label>
+<button class="btn" type="submit">Publish</button><p class="hint">Ye sirf index.html badalta hai. Baaki uploaded files safe rehti hain.</p></form></div></div>
+
+<div class="card rv"><h2>Custom domain</h2><p class="dim">Apna domain hai (jaise <code>mysite.com</code>)? Add karo, phir apne registrar ke DNS mein <b>A record</b> ko <code>{{ server_ip }}</code> par point karo (www ke liye CNAME: <code>{{ base }}</code>).</p>
+<form method="post" action="/sites/{{ site.id }}/domain" class="inl2"><input type="hidden" name="csrf" value="{{ csrf() }}"><input name="domain" placeholder="mysite.com" required maxlength="253"><button class="btn sm" type="submit">Add</button></form>
+{% for d in domains %}<div class="dom"><b>{{ d.domain }}</b><span class="st {{ 'active' if d.verified else 'pending' }}">{{ 'verified' if d.verified else 'pending' }}</span>
+<div class="row">{% if not d.verified %}<form method="post" action="/sites/{{ site.id }}/domain/{{ d.id }}/verify"><input type="hidden" name="csrf" value="{{ csrf() }}"><button class="btn sm" type="submit">Verify DNS</button></form>{% endif %}
+<form method="post" action="/sites/{{ site.id }}/domain/{{ d.id }}/delete"><input type="hidden" name="csrf" value="{{ csrf() }}"><button class="btn ghost sm" type="submit">Hatao</button></form></div></div>{% endfor %}</div>
+
+<form method="post" action="/sites/{{ site.id }}/delete" class="danger" onsubmit="return confirm('Site hamesha ke liye delete hogi. Pakka?')"><input type="hidden" name="csrf" value="{{ csrf() }}"><button class="btn ghost sm" type="submit">Site delete karo</button></form></section>{% endblock %}

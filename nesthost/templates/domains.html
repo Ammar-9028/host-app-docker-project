@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Free domain guide | {{ brand }}{% endblock %}
+{% block content %}<section class="sec narrow"><h1>Domain ka sach</h1>
+<p class="lead">Koi bhi platform asli <b>.com / .in</b> domain <u>free mein register nahi kar sakta</u>, kyunki registry ko fees deni padti hain. Hostinger bhi domain paid plan ke saath dikhata hai. Free mein ye raaste hain:</p>
+<div class="opt card rv"><h2>1. Free subdomain (yahin)</h2><p><b>yourname.{{ base }}</b>: instantly free, HTTPS ke saath. <a href="/signup">Signup karo</a>.</p></div>
+<div class="opt card rv"><h2>2. Apna domain, sasta</h2><p>Naye extensions (.xyz, .site, .online) aksar pehle saal bahut sasti sale mein milte hain. Kisi bhi registrar par price compare karo, phir yahan connect karo. Renewal price zaroor dekho.</p></div>
+<div class="opt card rv"><h2>3. Student ya community free offers</h2><p>Kuch registrars students ya developers ko pehle saal free domain dete hain (jaise GitHub Student Developer Pack ke offers), aur kuch community projects free subdomains dete hain. Offers badalte rehte hain, isliye current terms khud check karo.</p></div>
+<div class="opt card rv"><h2>4. Domain check tool</h2><p>Koi bhi domain likho aur dekho ki wo taken hai ya nahi (RDAP se).</p>
+<form class="search light" id="dc2" autocomplete="off"><input id="dc2q" placeholder="example.com" aria-label="Domain" maxlength="80"><button class="btn" type="submit">Check</button></form><p id="dc2r" class="dcr dark" role="status" aria-live="polite"></p></div>
+<div class="opt card rv"><h2>Testing ke liye bina domain</h2><p>Local par <code>mysite.localhost</code> khud chalta hai. Server par demo ke liye <code>BASE_DOMAIN=1-2-3-4.sslip.io</code> (apni IP ke saath) free wildcard DNS deta hai.</p></div></section>{% endblock %}
